@@ -34,7 +34,7 @@ fetchUsersBtn.addEventListener('submit', async (event) => {
   buttonLoadMore.style.display = 'none';
 
   try {
-    const data = await fetchImages(currentSearch, currentPage);
+    const data = await fetchImages(currentSearch, 1);
 
     if (data.hits.length === 0) {
       showAlert('Sorry, there are no images matching your search query. Please try again!');
@@ -49,7 +49,6 @@ fetchUsersBtn.addEventListener('submit', async (event) => {
     modal.refresh();
 
     updateLoadMoreButton(data.totalHits);
-    // makeSmoothScrolling();
 
   } catch (error) {
     showAlert(error.toString());
@@ -57,12 +56,11 @@ fetchUsersBtn.addEventListener('submit', async (event) => {
 });
 
 buttonLoadMore.addEventListener('click', async () => {
-  currentPage++;
   loader.style.display = 'block';
   buttonLoadMore.style.display = 'none';
 
   try {
-    const data = await fetchImages(currentSearch, currentPage);
+    const data = await fetchImages(currentSearch, currentPage + 1);
 
     loader.style.display = 'none';
 
@@ -77,6 +75,7 @@ buttonLoadMore.addEventListener('click', async () => {
 
     gallery.innerHTML += additionalImagesHTML;
     modal.refresh();
+    currentPage++;
 
     updateLoadMoreButton(data.totalHits);
     makeSmoothScrolling();
