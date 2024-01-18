@@ -27,6 +27,7 @@ fetchUsersBtn.addEventListener('submit', async (event) => {
   const usersValue = textInput.value;
 
   currentSearch = usersValue;
+  currentPage = 1;
 
   gallery.innerHTML = '';
   textInput.value = '';
@@ -52,6 +53,8 @@ fetchUsersBtn.addEventListener('submit', async (event) => {
 
   } catch (error) {
     showAlert(error.toString());
+  } finally {
+    loader.style.display = 'none';
   }
 });
 
